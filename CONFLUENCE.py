@@ -71,7 +71,7 @@ class CONFLUENCE:
         workflow_orchestrator (WorkflowOrchestrator): Workflow coordination instance
     """
     
-    def __init__(self, config_path: Path):
+    def __init__(self, config_path="config_CAN_01AD003_macro.yaml"):
         """
         Initialize the CONFLUENCE system with a configuration file.
         
