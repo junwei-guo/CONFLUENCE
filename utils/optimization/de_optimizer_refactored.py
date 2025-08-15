@@ -3782,8 +3782,6 @@ class DEOptimizer:
         # import numpy as np
         # batch_tasks=np.ones(100)
 
-
-
         from mpi4py import MPI
 
         comm = MPI.COMM_WORLD  # global communicator
@@ -3820,8 +3818,15 @@ class DEOptimizer:
         ################################################################
 
         comm.Barrier()  # all processes wait here
+
         return
 
+        #Comments: 
+        #0. Put this script in DE loop.
+        #1. To run python in MPI environment: mpirun python CONFLUENCE.py --config
+        #2. May have high memory usage as I synchronize all memory (data at each CPU memory is identical). Memory is only distributed for the summa instances.
+        #3. Need to turn off multiprocessing, joblib.
+        #4. Need to set python IO at rank #0 only. summa.exe IO is already parallelized above, no need to worry about that part.
 
     def _execute_batch_safe(self, batch_tasks: List[Dict], max_workers: int) -> List[Dict]:
         """Execute a batch with enhanced error handling and recovery"""
