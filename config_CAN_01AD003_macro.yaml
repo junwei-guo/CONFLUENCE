@@ -17,7 +17,7 @@
 ### ============================================= 1. Global settings: =====================================================================
 
 # Main paths
-CONFLUENCE_DATA_DIR: /home/x-jguo3/calibration/domain_CAN_01AD003_macro/
+CONFLUENCE_DATA_DIR: /home/x-jguo3/calibration/
 CONFLUENCE_CODE_DIR: "/home/x-jguo3/calibration/CONFLUENCE"
 
 # Experiment settings
@@ -189,7 +189,7 @@ SETTINGS_SUMMA_OUTPUT: outputControl.txt                       # Name of SUMMA o
 SETTINGS_SUMMA_BASIN_PARAMS_FILE: basinParamInfo.txt           # Name of SUMMA basin parameters file
 SETTINGS_SUMMA_LOCAL_PARAMS_FILE: localParamInfo.txt           # Name of SUMMA basin parameters file
 SUMMA_INSTALL_PATH: default                                    # SUMMA installation path, if default, self.code_dir / installs / summa / bin
-SUMMA_EXE: summa_sundials.exe                                  # Name of SUMMA executable
+SUMMA_EXE: summa.exe                                  # Name of SUMMA executable
 
 # Parallel SUMMA settings
 SETTINGS_SUMMA_USE_PARALLEL_SUMMA: false                       # Run SUMMA in parallel

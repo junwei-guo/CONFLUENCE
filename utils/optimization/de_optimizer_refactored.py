@@ -3249,6 +3249,7 @@ class DEOptimizer:
         
         return trial_scores
 
+    #Parallization loop to be improved here.
     def _run_parallel_evaluations_enhanced(self, evaluation_tasks: List[Dict]) -> List[Dict]:
         """Enhanced parallel evaluation with detailed error reporting and debugging"""
         import multiprocessing as mp
@@ -3777,6 +3778,49 @@ class DEOptimizer:
             ]
 
 
+    def _execute_batch_MPI(self, batch_tasks: List[Dict]) -> List[Dict]:
+        # import numpy as np
+        # batch_tasks=np.ones(100)
+
+
+
+        from mpi4py import MPI
+
+        comm = MPI.COMM_WORLD  # global communicator
+        rank = comm.Get_rank()  # process ID
+        size = comm.Get_size()  # total number of processes
+
+        numGlobTasks = len(batch_tasks)
+
+        if numGlobTasks < size:
+            if rank == 0:
+                print(f"ERROR! numGlobTasks ({numGlobTasks}) is less than number of ranks ({size}).")
+
+        # Create sub_batch_tasks for each rank:
+        minTaskEachRank = int(np.floor(numGlobTasks/size))
+        resiTasks = numGlobTasks-minTaskEachRank*size
+
+        print(f"minTaskEachRank={minTaskEachRank}, resiTasks={resiTasks}")
+        if rank<resiTasks:
+            startingIndex=rank*(minTaskEachRank+1)
+            endingIndex=startingIndex + (minTaskEachRank+1)
+        else:
+            startingIndex=(resiTasks)*(minTaskEachRank+1)+(rank-resiTasks)*minTaskEachRank 
+            endingIndex=startingIndex + minTaskEachRank
+
+
+        print(f"Msg from Rank({rank}/{size}): running tasks from {startingIndex} to {endingIndex} out of {numGlobTasks}.")
+        sub_batch_tasks=batch_tasks[startingIndex:endingIndex]
+
+
+        ################################################################
+        #
+        #   run summa.exe in sub_batch_tasks here:
+        #
+        ################################################################
+
+        comm.Barrier()  # all processes wait here
+        return
 
 
     def _execute_batch_safe(self, batch_tasks: List[Dict], max_workers: int) -> List[Dict]:
