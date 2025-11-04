@@ -12,5 +12,6 @@ dependencies:
   - pyyaml
   - shapely  
   - pip
+  - mpi4py
   - pip:
     - rasterstats
